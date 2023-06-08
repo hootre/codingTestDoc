@@ -314,6 +314,59 @@ class Queue {
 
 </details>
 
+---
+
+# 이진탐색트리 (BinarySearchTree )
+
+> 기본 배열로 할 수 있지만 더 빠른 시간복잡도를 원하는 경우
+
+<details>
+<summary>이진탐색트리 코드</summary>
+
+<!-- summary 아래 한칸 공백 두어야함 -->
+
+### 이진탐색트리 코드(JS)
+
+```javascript
+// 기본 노드
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+// 이진 탐색 트리
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+  insert(value) {
+    let newNode = new Node(value);
+    if (this.root === null) {
+      this.root = newNode;
+      return this;
+    } else {
+      let current = this.root;
+      function traverse(node) {
+        if (node.left) traverse(node.left);
+        if (node.right) traverse(node.right);
+        if (node.left === null) {
+          let leftNode = new Node(-value);
+          let rightNode = new Node(value);
+          node.left = leftNode;
+          node.right = rightNode;
+        }
+      }
+      traverse(current);
+      return this;
+    }
+  }
+}
+```
+
+</details>
+
 # DFS (Depth First Search)
 
 > DFS는 깊이 우선 탐색 방법으로 트리 구조의 데이터에서 노드마다 가장 깊이까지 탐색한 뒤 다음 노드로 이동하는 방법입니다.
@@ -381,6 +434,31 @@ const dfs = (graph, startNode) => {
 console.log(dfs(graph, "A"));
 
 // ["A", "C", "I", "J", "H", "G", "B", "D", "F", "E"]
+```
+
+### DFS (재귀)
+
+```javascript
+function solution(numbers, target) {
+  let answer = 0;
+  const length = numbers.length;
+
+  function dfs(count, sum) {
+    if (count === length) {
+      if (target === sum) {
+        answer++;
+      }
+      return;
+    }
+
+    dfs(count + 1, sum + numbers[count]);
+    dfs(count + 1, sum - numbers[count]);
+  }
+
+  dfs(0, 0);
+
+  return answer;
+}
 ```
 
 </details>
